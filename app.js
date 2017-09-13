@@ -5,6 +5,14 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// Grab config info from .env
+require ('dotenv').config();
+
+// Database
+var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+mongoose.connect(process.env.MONGODB_URI);
+
 var index = require('./routes/index');
 var users = require('./routes/users');
 

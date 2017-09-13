@@ -15,9 +15,24 @@ const content = [
     to: '',
   },
   {
-    icon: 'tint',
+    icon: 'cog',
+    label: 'Lucity',
+    to: 'lucity',
+  },
+  {
+    icon: 'map-marker',
+    label: 'Precise',
+    to: 'precise',
+  },
+  {
+    icon: 'dollar',
     label: 'IAN',
     content: [
+      {
+        icon: 'tint',
+        label: 'Main',
+        to: 'ian',
+      },
       {
         icon: 'tint',
         label: 'Water',
@@ -31,14 +46,14 @@ const content = [
       {
         icon: 'tint',
         label: 'Stormwater',
-        to: 'stormwater',
+        to: 'stormwater'
       },
     ],
   },
   {
     icon: 'tint',
-    label: 'Precise',
-    to: 'precise',
+    label: 'API',
+    to: 'api',
   }
 ];
 
