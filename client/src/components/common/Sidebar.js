@@ -3,7 +3,8 @@ import MetisMenu from 'react-metismenu';
 import RouterLink from 'react-metismenu-router-link';
 
 // Javascripts
-import '../../../node_modules/react-metismenu/dist/react-metismenu.min.js'
+// import '../../../node_modules/react-metismenu/dist/react-metismenu.min.js'
+import 'react-metismenu/dist/react-metismenu.js'
 
 // import '../../../node_modules/react-metismenu/dist/react-metismenu-standart.min.css'
 import '../stylesheets/react-metismenu-inspinia.css';

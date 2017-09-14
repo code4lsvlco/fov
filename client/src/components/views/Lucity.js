@@ -14,8 +14,8 @@ class Lucity extends Component {
     axios.get(`/api/lucity`)
       .then(res => {
         console.log(res)
-        // const posts = res.data.data.children.map(obj => obj.data);
-        this.setState({ res });
+        const data = [res.data] ;
+        this.setState({ data });
       });
   }
 
@@ -24,7 +24,7 @@ class Lucity extends Component {
       <div>
         <h1>Lucity</h1>
         <ul>
-          {this.state.data}
+          {this.state.data.toString()}
         </ul>
       </div>
     );

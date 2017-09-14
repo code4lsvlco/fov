@@ -1,7 +1,7 @@
 import React from 'react';
 // import {Dropdown} from 'react-bootstrap';
 // import {smoothlyMenu} from '../layouts/Helpers';
-import '../../../node_modules/font-awesome/css/font-awesome.min.css'
+import 'font-awesome/css/font-awesome.css'
 
 import FontAwesome from 'react-fontawesome';
 
