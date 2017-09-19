@@ -27,11 +27,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Database
+var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+mongoose.connect(process.env.MONGODB_URI);
+
+var authentication = require('./routes/authentication');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var api_ian = require('./routes/api-ian');
 var api_lucity = require('./routes/api-lucity');
 
+app.use('/auth/', authentication);
 app.use('/', index);
 app.use('/users', users);
 app.use('/api/ian',api_ian);

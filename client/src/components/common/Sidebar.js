@@ -61,7 +61,9 @@ const content = [
 const Sidebar = () => {
   return (
     <nav className="navbar-default navbar-static-side">
-      <MetisMenu activeLinkLabel content={content} LinkComponent={RouterLink} />
+      <div className="sidebar-collapse" style={{paddingTop: 30}}>
+        <MetisMenu activeLinkLabel content={content} LinkComponent={RouterLink} />
+      </div>
     </nav>
   )
 }

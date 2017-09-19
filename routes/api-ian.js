@@ -85,6 +85,18 @@ router.get('/', function(req, res, next) {
 // });
 
 router.get('/account/descriptions', function(req, res, next) {
+  var query = "SELECT TOP 100 *" +
+    " FROM dbo.AccountDescriptions" +
+    " WHERE SegmentOne = 501" +
+    " ORDER BY OrganizationCode, ObjectCode" +
+    ";"
+  getQuery(query,res);
+  // new sql.Request().query(query, function(err, recordset) {
+  //   res.json(recordset);
+  // });
+});
+
+router.get('/account/descriptions/water', function(req, res, next) {
   var query = "SELECT DISTINCT LongDescription, OrganizationCode, ObjectCode, SegmentOneDescription, SegmentTwoDescription, SegmentThreeDescription, SegmentFourDescription, SegmentFiveDescription" +
     " FROM dbo.AccountDescriptions" +
     " WHERE SegmentOne = 501" +
@@ -96,17 +108,25 @@ router.get('/account/descriptions', function(req, res, next) {
   // });
 });
 
-router.get('/accounts', function(req, res, next) {
-  getTop100("dbo.Accounts",res);
-});
-
 router.get('/account/segments', function(req, res, next) {
   getTop100("dbo.AccountSegments",res);
 });
 
+router.get('/account/histories', function(req, res, next) {
+  getTop100("dbo.AccountHistories",res);
+});
+
+router.get('/accounts', function(req, res, next) {
+  getTop100("dbo.Accounts",res);
+});
+
+router.get('/addresses', function(req, res, next) {
+  getTop100("dbo.Addresses",res);
+});
+
 // Account Sets/Projections
 router.get('/gl/versions', function(req, res, next) {
-  getTop100("FROM dbo.glbdprom",res);
+  getTop100("dbo.glbdprom",res);
 });
 
 // Actual GL
@@ -125,5 +145,20 @@ router.get('/gl/versions/current', function(req, res, next) {
   //     res.json(err);
   // });
 });
+
+router.get('/gl/journal/lineitems', function(req, res, next) {
+  getTop100("dbo.JournalLineItems",res);
+});
+
+// dbo.MasterBalHistories
+// dbo.MasterBals
+// dbo.PurchaseOrders
+// dbo.Requisitions
+// dbo.RequisitionItems
+// dbo.RequisitionItemAllocations
+// dbo.RequisitionNotes
+// dbo.Vendors
+// dbo.uthistry
+// dbo.utcharge
 
 module.exports = router;

@@ -1,7 +1,67 @@
 import React, { Component } from 'react';
 import { Row, Ibox, DataGridArray, DataGridURL } from '../common';
+import ReactHighcharts from 'react-highcharts';
 import axios from 'axios';
 import _ from 'lodash';
+
+const config = {
+  xAxis: {
+    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  },
+  series: [{
+    data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 295.6, 454.4]
+  }]
+};
+
+const configPie = {chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Browser market shares January, 2015 to May, 2015'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+
+            }
+        }
+    },
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: [{
+            name: 'Microsoft Internet Explorer',
+            y: 56.33
+        }, {
+            name: 'Chrome',
+            y: 24.03,
+            sliced: true,
+            selected: true
+        }, {
+            name: 'Firefox',
+            y: 10.38
+        }, {
+            name: 'Safari',
+            y: 4.77
+        }, {
+            name: 'Opera',
+            y: 0.91
+        }, {
+            name: 'Proprietary or Undetectable',
+            y: 0.2
+      }]
+    }]
+  }
 
 class Lucity extends Component {
   // constructor(props) {
@@ -32,9 +92,21 @@ class Lucity extends Component {
   //   });
   // }
 
+  // const config = {
+  //   /* HighchartsConfig */
+  // };
+
   render() {
     return (
       <div className="wrapper wrapper-content">
+        <Row>
+          <Ibox width="6" title="Highcharts Pie Chart">
+            <ReactHighcharts config={config}></ReactHighcharts>
+          </Ibox>
+          <Ibox width="6" title="Highcharts Pie Chart with Legend">
+            <ReactHighcharts config={configPie}></ReactHighcharts>
+          </Ibox>
+        </Row>
         <Row>
           <Ibox width="6" title="Grouped By WO_CAT_TY WO_PROB_TY">
             <DataGridURL url='/api/lucity/work/groupby/WO_CAT_TY/WO_PROB_TY'/>
