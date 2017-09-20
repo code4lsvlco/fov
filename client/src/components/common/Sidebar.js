@@ -11,6 +11,16 @@ import '../stylesheets/react-metismenu-inspinia.css';
 
 const content = [
   {
+    icon: '',
+    label: 'RequireAuth',
+    to: 'requireauth',
+  },
+  {
+    icon: '',
+    label: 'PrivateRoute',
+    to: 'privateroute',
+  },
+  {
     icon: 'home',
     label: 'Home',
     to: '',

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 // import {Dropdown} from 'react-bootstrap';
 // import {smoothlyMenu} from '../layouts/Helpers';
 import 'font-awesome/css/font-awesome.css'
@@ -26,10 +27,10 @@ class Header extends React.Component {
           </div>
           <ul className="nav navbar-top-links navbar-right">
             <li>
-              <a href="#">
+              <Link to={`/signout`}>
                 <FontAwesome name='sign-out'/>
                 Log out
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>
