@@ -1,10 +1,13 @@
 import React from 'react';
+import { Main } from '../common'
 
 const Trello = () => {
   return (
-    <div>
-      Trello Page View
-    </div>
+    <Main>
+      <div>
+        Trello Page View
+      </div>
+    </Main>
   )
 }
 

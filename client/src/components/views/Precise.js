@@ -1,10 +1,13 @@
 import React from 'react';
+import { Main } from '../common'
 
 const Precise = () => {
   return (
-    <div>
-      Precise Page View
-    </div>
+    <Main>
+      <div>
+        Precise Page View
+      </div>
+    </Main>
   )
 }
 

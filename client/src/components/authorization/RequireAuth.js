@@ -1,5 +1,7 @@
+// Usage: <Route path="/some_private_route" component={RequireAuth(Template)} />
+
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 export default function(ComposedComponent) {
@@ -8,20 +10,19 @@ export default function(ComposedComponent) {
       router: React.PropTypes.object
     }
 
-    componentWillMount() {
-      if (!this.props.authenticated) {
-        this.props.history.push('/signin');
-      }
-    }
-
-    componentWillUpdate(nextProps) {
-      if (!nextProps.authenticated) {
-        this.props.history.push('/signin');
-      }
-    }
-
     render() {
-      return <ComposedComponent {...this.props} />
+      if (!this.props.authenticated) {
+        return (
+          <Redirect
+            to={{
+              pathname: "/signin",
+              state: { from: this.props.location.pathname }
+            }}
+          />
+        )
+      } else {
+        return (<ComposedComponent {...this.props} />)
+      }
     }
   }
 

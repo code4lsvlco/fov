@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { reduxForm , Field } from 'redux-form';
 import * as actions from '../../actions';
 
 const renderInput = field => {
-    const { input, type } = field;
-    return (
-        <div>
-            <input {...input} type={type} className="form-control" />
-        </div>
-    );
+  const { input, type, label, placeholder } = field;
+  return (
+    <div className="form-group">
+      <label>{label}</label>
+      <input {...input} type={type} className="form-control" placeholder={placeholder}/>
+    </div>
+  );
 }
 
 class Signin extends Component {
   handleFormSubmit({ email, password }) {
-    // Need to do something to log user in
-    this.props.signinUser({ email, password, history: this.props.history });
+    this.props.signinUser({ email, password, history: this.props.history, to: this.props.location.state.from });
   }
 
   renderAlert() {
@@ -31,20 +32,40 @@ class Signin extends Component {
 
   render() {
     const { handleSubmit } = this.props;
-
+    // document.body.style.backgroundColor = '#f3f3f4';
     return (
-      <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-        <div className="form-group">
-            <label>Email:</label>
-            <Field name="email" type="email" component={renderInput} />
+      <div>
+        <Helmet>
+          <title>FOV - Sign In</title>
+        </Helmet>
+        <div className="middle-box text-center loginscreen animated fadeInDown">
+          <div>
+            <div>
+              <h2>¯\_(ツ)_/¯</h2>
+              <h3>Enter at your own risk.</h3>
+              <p>Alpha Version</p>
+              <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+                <Field label="Email" name="email" type="email" component={renderInput} placeholder="me@louisvilleco.gov"/>
+                <Field label="Passwords" name="password" type="password" component={renderInput} placeholder="password"/>
+                {this.renderAlert()}
+                <button action="submit" className="btn btn-primary block full-width m-b" style={{ backgroundColor: "#00853e", borderColor: "none" }}>Sign in</button>
+              </form>
+              <Link to="/forgotpassword">
+                <small>Forgot password?</small>
+              </Link>
+              <p className="text-muted text-center">
+                <small>Do not have an account?</small>
+              </p>
+              <Link to="/signup" className='btn btn-sm btn-white btn-block'>
+                Create an account
+              </Link>
+              <p className='m-t'>
+                <small>City of Louisville, CO &copy; 2016</small>
+              </p>
+            </div>
+          </div>
         </div>
-        <div className="form-group">
-            <label>Password:</label>
-            <Field name="password" type="password" component={renderInput} />
-        </div>
-        {this.renderAlert()}
-        <button action="submit" className="btn btn-primary">Sign in</button>
-      </form>
+      </div>
     );
   }
 }
@@ -65,7 +86,10 @@ function mapStateToProps(state) {
 // })(Signin)
 // export default Signin
 
-export default reduxForm({
+Signin = connect(mapStateToProps, actions)(Signin)
+Signin = reduxForm({
   // validate,
   form: "signin",
-})(connect(mapStateToProps, actions)(Signin));
+})(Signin)
+// Signin = withRouter(Signin)
+export default Signin;

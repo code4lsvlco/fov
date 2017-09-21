@@ -1,14 +1,14 @@
 import React from 'react';
 import { Main } from '../common'
 
-const Ian = () => {
+const Settings = () => {
   return (
     <Main>
       <div>
-        Ian Page View
+        Settings Page View
       </div>
     </Main>
   )
 }
 
-export { Ian };
+export { Settings };

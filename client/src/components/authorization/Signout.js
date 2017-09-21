@@ -11,8 +11,7 @@ class Signout extends Component {
   render() {
     return (
       <Redirect to={{
-        pathname: '/',
-        // state: { from: props.location } // TODO
+        pathname: '/'
       }}/>
     );
   }

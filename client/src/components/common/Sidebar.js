@@ -1,81 +1,33 @@
-import React from 'react';
+import React, { Component } from 'react';
 import MetisMenu from 'react-metismenu';
 import RouterLink from 'react-metismenu-router-link';
+import { connect } from 'react-redux';
 
 // Javascripts
-// import '../../../node_modules/react-metismenu/dist/react-metismenu.min.js'
 import 'react-metismenu/dist/react-metismenu.js'
-
-// import '../../../node_modules/react-metismenu/dist/react-metismenu-standart.min.css'
 import '../stylesheets/react-metismenu-inspinia.css';
+import { SideBarMenuItems } from '.';
 
-const content = [
-  {
-    icon: '',
-    label: 'RequireAuth',
-    to: 'requireauth',
-  },
-  {
-    icon: '',
-    label: 'PrivateRoute',
-    to: 'privateroute',
-  },
-  {
-    icon: 'home',
-    label: 'Home',
-    to: '',
-  },
-  {
-    icon: 'cog',
-    label: 'Lucity',
-    to: 'lucity',
-  },
-  {
-    icon: 'map-marker',
-    label: 'Precise',
-    to: 'precise',
-  },
-  {
-    icon: 'dollar',
-    label: 'IAN',
-    content: [
-      {
-        icon: 'tint',
-        label: 'Main',
-        to: 'ian',
-      },
-      {
-        icon: 'tint',
-        label: 'Water',
-        to: 'water',
-      },
-      {
-        icon: 'tint',
-        label: 'Wastewater',
-        to: 'wastewater',
-      },
-      {
-        icon: 'tint',
-        label: 'Stormwater',
-        to: 'stormwater'
-      },
-    ],
-  },
-  {
-    icon: 'tint',
-    label: 'API',
-    to: 'api',
-  }
-];
-
-const Sidebar = () => {
-  return (
-    <nav className="navbar-default navbar-static-side">
-      <div className="sidebar-collapse" style={{paddingTop: 30}}>
-        <MetisMenu activeLinkLabel content={content} LinkComponent={RouterLink} />
+const SideBarHTML = () => (
+  <nav className="navbar-default navbar-static-side">
+    <div className="sidebar-collapse" style={{paddingTop: 30}}>
+      <div>
       </div>
-    </nav>
-  )
+      <MetisMenu activeLinkFromLocation content={SideBarMenuItems} LinkComponent={RouterLink} />
+    </div>
+  </nav>
+)
+
+class SideBar extends Component {
+  render() {
+    return this.props.authenticated ? <SideBarHTML /> : null
+  }
 }
 
-export { Sidebar };
+const mapStatetoProps = (state) => {
+  return { authenticated: state.auth.authenticated }
+}
+
+SideBar = connect(mapStatetoProps)(SideBar)
+
+export { SideBar };

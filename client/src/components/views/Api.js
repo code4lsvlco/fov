@@ -1,10 +1,13 @@
 import React from 'react';
+import { Main } from '../common'
 
 const Api = () => {
   return (
-    <div>
-      Api Page View
-    </div>
+    <Main>
+      <div>
+        Api Page View
+      </div>
+    </Main>
   )
 }
 

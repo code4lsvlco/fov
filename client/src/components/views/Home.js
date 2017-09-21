@@ -1,10 +1,13 @@
 import React from 'react';
+import { Main } from '../common'
 
 const Home = () => {
   return (
-    <div>
-      Home Page View
-    </div>
+    <Main>
+      <div>
+        Home Page View
+      </div>
+    </Main>
   )
 }
 
