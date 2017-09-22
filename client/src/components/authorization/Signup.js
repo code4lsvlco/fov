@@ -7,48 +7,16 @@ import { TextField } from "redux-form-material-ui";
 import { Helmet } from "react-helmet";
 import * as actions from "../../actions";
 
-const required = value => (value == null ? 'Field is required' : undefined);
-const emailValid = value =>
-  (value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
-    ? 'Invalid email'
-    : undefined);
-// const emailLouisville
-
-// function validateEmail(email) {
-// var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-// if(re.test(email)){
-//     //Email valid. Procees to test if it's from the right domain (Second argument is to check that the string ENDS with this domain, and that it doesn't just contain it)
-//     if(email.indexOf("@thedomain.com", email.length - "@thedomain.com".length) !== -1){
-//         //VALID
-//         console.log("VALID");
-//     }
-// }
-
-const matchPasswords = (value, allValues, props) => {
-  const match = allValues.original_password === allValues.confirm_password
-  return (match ? null : 'Passwords must match');
-};
-
 class Signup extends Component {
 
-
   handleFormSubmit(formProps) {
-    // this.props.signupUser(formProps);
-    // console.log(formProps);
-    console.log("Outside Axios");
-    console.log(this.props);
     return axios.post(`/auth/signup`, { email: formProps.email, password: formProps.original_password })
       .then(response => {
-        // dispatch({ type: AUTH_USER });
-        // localStorage.setItem('token', response.data.token);
-        // this.props.history.push('/');
-        console.log("Inside Axios");
         console.log(this.props);
-        console.log(this.props.history);
         this.props.signupUser(response.data.token, this.props.history);
       })
       .catch(error => {
-        throw new SubmissionError(error.response.data)
+        throw new SubmissionError(error.response.data);
       });
   }
 
@@ -126,27 +94,49 @@ class Signup extends Component {
   }
 }
 
-function validate(formProps) {
-  const errors = {};
+// function validate(formProps) {
+//   const errors = {};
+//
+//   if (!formProps.email) {
+//     errors.email = "Please enter an email";
+//   }
+//
+//   if (!formProps.password) {
+//     errors.password = "Please enter a password";
+//   }
+//
+//   if (!formProps.passwordConfirm) {
+//     errors.passwordConfirm = "Please enter a password confirmation";
+//   }
+//
+//   if (formProps.password !== formProps.passwordConfirm) {
+//     errors.password = "Passwords must match";
+//   }
+//
+//   return errors;
+// }
 
-  if (!formProps.email) {
-    errors.email = "Please enter an email";
-  }
+const required = value => (value == null ? 'Field is required' : undefined);
+const emailValid = value =>
+  (value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
+    ? 'Invalid email'
+    : undefined);
+// const emailLouisville
 
-  if (!formProps.password) {
-    errors.password = "Please enter a password";
-  }
+// function validateEmail(email) {
+// var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+// if(re.test(email)){
+//     //Email valid. Procees to test if it's from the right domain (Second argument is to check that the string ENDS with this domain, and that it doesn't just contain it)
+//     if(email.indexOf("@thedomain.com", email.length - "@thedomain.com".length) !== -1){
+//         //VALID
+//         console.log("VALID");
+//     }
+// }
 
-  if (!formProps.passwordConfirm) {
-    errors.passwordConfirm = "Please enter a password confirmation";
-  }
-
-  if (formProps.password !== formProps.passwordConfirm) {
-    errors.password = "Passwords must match";
-  }
-
-  return errors;
-}
+const matchPasswords = (value, allValues, props) => {
+  const match = allValues.original_password === allValues.confirm_password
+  return (match ? null : 'Passwords must match');
+};
 
 function mapStateToProps(state) {
   return { errorMessage: state.auth.error };

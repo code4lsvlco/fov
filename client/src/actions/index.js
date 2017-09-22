@@ -19,20 +19,20 @@ export function signinUser({ email, password, history, to}) {
   }
 }
 
-// TODO - Update signupUser to match signinUser
 export function signupUser(token, history) {
   return function(dispatch) {
-    // axios.post(`/auth/signup`, { email, password })
-      // .then(response => {
-        console.log("signupUser");
-        console.log(history);
-        dispatch({ type: AUTH_USER });
-        localStorage.setItem('token', token);
-        history.push("/");
-      // })
+    dispatch({ type: AUTH_USER });
+    localStorage.setItem('token', token);
+    history.push("/");
       // .catch(response => dispatch(authError(response.data.error)));
   }
 }
+
+// export function signupUserAuthError(message) {
+//   return function(dispatch) {
+//     dispatch(authError(message));
+//   };
+// }
 
 export function authError(error) {
   return {
