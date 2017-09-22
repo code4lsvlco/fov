@@ -8,13 +8,13 @@ const SideBarMenuItems = [
   {
     icon: 'cog',
     label: 'Lucity',
-    to: 'lucity',
+    to: '/lucity',
     id: 'lucity'
   },
   {
     icon: 'map-marker',
     label: 'Precise',
-    to: 'precise',
+    to: '/precise',
     id: 'precise'
   },
   {
@@ -24,35 +24,41 @@ const SideBarMenuItems = [
       {
         icon: 'tint',
         label: 'Main',
-        to: 'ian',
+        to: '/ian/ian',
       },
       {
         icon: 'tint',
         label: 'Water',
-        to: 'water',
+        to: '/ian/water',
       },
       {
         icon: 'tint',
         label: 'Wastewater',
-        to: 'wastewater',
+        to: '/ian/wastewater',
       },
       {
         icon: 'tint',
         label: 'Stormwater',
-        to: 'stormwater'
+        to: '/ian/stormwater'
       },
     ],
   },
   {
     icon: 'cog',
     label: 'Settings',
-    to: 'settings',
-    id: 'settings'
+    content: [
+      {
+        icon: '',
+        label: 'Users',
+        to: '/settings/users',
+        id: 'users'
+      }
+    ]
   },
   {
     icon: 'tint',
     label: 'API',
-    to: 'api',
+    to: '/api',
     id: 'api'
   }
 ];

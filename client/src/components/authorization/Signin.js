@@ -32,7 +32,9 @@ class Signin extends Component {
 
   render() {
     const { handleSubmit } = this.props;
-    // document.body.style.backgroundColor = '#f3f3f4';
+
+    document.body.style.backgroundColor = '#f3f3f4';
+
     return (
       <div>
         <Helmet>
@@ -74,21 +76,8 @@ function mapStateToProps(state) {
   return { errorMessage: state.auth.error };
 }
 
-// export default reduxForm({
-//   form: 'signin',
-//   fields: ['email', 'password']
-// }, mapStateToProps, actions)(Signin);
-
-// Signin = connect(mapStateToProps,actions)(Signin)
-// Signin = reduxForm({
-//   form: 'signin',
-//   fields: ['email', 'password']
-// })(Signin)
-// export default Signin
-
 Signin = connect(mapStateToProps, actions)(Signin)
 Signin = reduxForm({
-  // validate,
   form: "signin",
 })(Signin)
 // Signin = withRouter(Signin)

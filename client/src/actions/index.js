@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { AUTH_USER, UNAUTH_USER, AUTH_ERROR } from './types';
 
-const ROOT_URL = 'http://localhost:5000'; // TODO Fix This to be from .env or iis process.env
+// const ROOT_URL = 'http://localhost:5000'; // TODO Fix This to be from .env or iis process.env
 
 export function signinUser({ email, password, history, to}) {
   return function(dispatch) {
@@ -20,15 +20,17 @@ export function signinUser({ email, password, history, to}) {
 }
 
 // TODO - Update signupUser to match signinUser
-export function signupUser({ email, password }) {
+export function signupUser(token, history) {
   return function(dispatch) {
-    axios.post(`${ROOT_URL}/auth/signup`, { email, password })
-      .then(response => {
+    // axios.post(`/auth/signup`, { email, password })
+      // .then(response => {
+        console.log("signupUser");
+        console.log(history);
         dispatch({ type: AUTH_USER });
-        localStorage.setItem('token', response.data.token);
-        // browserHistory.push('/feature');
-      })
-      .catch(response => dispatch(authError(response.data.error)));
+        localStorage.setItem('token', token);
+        history.push("/");
+      // })
+      // .catch(response => dispatch(authError(response.data.error)));
   }
 }
 

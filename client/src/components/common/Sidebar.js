@@ -20,6 +20,7 @@ const SideBarHTML = () => (
 
 class SideBar extends Component {
   render() {
+    document.body.style.backgroundColor = '#2f4050';
     return this.props.authenticated ? <SideBarHTML /> : null
   }
 }

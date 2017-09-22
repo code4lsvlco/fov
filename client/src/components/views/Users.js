@@ -1,14 +1,25 @@
-import React from 'react';
-import { Main } from '../common';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Main, Row, Ibox } from '../common';
 
-const Users = () => {
+let Users = (props) => {
   return (
     <Main>
-      <div>
-        Users Page View
+      <div className="wrapper wrapper-content">
+        <Row>
+          <Ibox width="12" title="Users">
+            Users
+          </Ibox>
+        </Row>
       </div>
     </Main>
   )
 }
+
+function mapStatetoProps(state) {
+  return { ...state }
+}
+
+Users = connect(mapStatetoProps)(Users)
 
 export { Users };

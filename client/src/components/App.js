@@ -14,6 +14,8 @@ import { Header, SideBar } from './common';
 import { Home, Lucity, Trello, Precise, Ian, Api, Settings, Users } from './views';
 import PrivateRoute from './authorization/PrivateRoute';
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 // Stylesheets
 import 'bootstrap/dist/css/bootstrap.css';
 import './stylesheets/App.css';
@@ -33,9 +35,11 @@ class App extends Component {
     return (
       <Provider store={store}>
         <BrowserRouter>
+          <MuiThemeProvider>
             <div id="wrapper">
               <SideBar />
               <Switch>
+                <PrivateRoute exact path="/" component={Home} />
                 <Route path="/signin" component={Signin} />
                 <Route path="/signout" component={Signout} />
                 <Route path="/signup" component={Signup} />
@@ -44,11 +48,10 @@ class App extends Component {
                 <PrivateRoute path="/api" component={Api} />
                 <PrivateRoute path="/precise" component={Precise} />
                 <PrivateRoute path="/trello" component={Trello} />
-                <PrivateRoute path="/settings" component={Settings} />
                 <PrivateRoute path="/settings/users" component={Users} />
-                <PrivateRoute path="/" component={Home} />
               </Switch>
             </div>
+          </MuiThemeProvider>
         </BrowserRouter>
       </Provider>
     )
