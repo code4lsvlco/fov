@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { DefaultLayout, Row, CardBox, DataGridArray, DataGridURL } from '../common';
+import { DefaultLayout, Row, CardBox, DataGridArray, DataGridURL, ChartRowBar } from '../common';
 // import { DefaultLayout } from '../common'
 import ReactHighcharts from 'react-highcharts';
 import axios from 'axios';
 import _ from 'lodash';
 import { Card, CardHeader } from 'material-ui';
 
-const config = {
+const configLine = {
   xAxis: {
     categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   },
@@ -64,6 +64,68 @@ const configPie = {
         }]
     }
 
+const configRowBar = {
+    chart: {
+        type: 'bar'
+    },
+    title: {
+        text: 'Historic World Population by Region'
+    },
+    subtitle: {
+        text: 'Source: <a href="https://en.wikipedia.org/wiki/World_population">Wikipedia.org</a>'
+    },
+    xAxis: {
+        categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
+        title: {
+            text: null
+        }
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Population (millions)',
+            align: 'high'
+        },
+        labels: {
+            overflow: 'justify'
+        }
+    },
+    tooltip: {
+        valueSuffix: ' millions'
+    },
+    plotOptions: {
+        bar: {
+            dataLabels: {
+                enabled: true
+            }
+        }
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'top',
+        x: -40,
+        y: 80,
+        floating: true,
+        borderWidth: 1,
+        backgroundColor: ('#FFFFFF'),
+        shadow: true
+    },
+    credits: {
+        enabled: false
+    },
+    series: [{
+        name: 'Year 1800',
+        data: [107, 31, 635, 203, 2]
+    }, {
+        name: 'Year 1900',
+        data: [133, 156, 947, 408, 6]
+    }, {
+        name: 'Year 2012',
+        data: [1052, 954, 4250, 740, 38]
+    }]
+};
+
 class Lucity extends Component {
   // constructor(props) {
   //   super(props);
@@ -102,11 +164,24 @@ class Lucity extends Component {
       <DefaultLayout>
         <div className="wrapper wrapper-content">
           <Row>
-            <CardBox width="6" title="Highcharts Pie Chart">
-              <ReactHighcharts config={config}></ReactHighcharts>
+            <CardBox width="12" title="Example #1">
+              <DataGridURL url='/api/lucity/work/status/open'/>
+            </CardBox>
+          </Row>
+          <Row>
+            <CardBox width="6" title="Example #1">
+              <ChartRowBar url='/api/lucity/work/groupby/WO_CAT_TY' category="WO_CAT_TY" series="count"/>
             </CardBox>
             <CardBox width="6" title="Highcharts Pie Chart with Legend">
-              <ReactHighcharts config={configPie}></ReactHighcharts>
+              <ChartRowBar url='/api/lucity/work/groupby/WO_PROB_TY' category="WO_PROB_TY" series="count"/>
+            </CardBox>
+          </Row>
+          <Row>
+            <CardBox width="6" title="Highcharts Pie Chart">
+              <ChartRowBar url='/api/lucity/work/groupby/WO_ACTN_TY' category="WO_ACTN_TY" series="count"/>
+            </CardBox>
+            <CardBox width="6" title="Highcharts Pie Chart with Legend">
+              <ChartRowBar url='/api/lucity/work/example/1' category="WO_ACTN_TY" series="sum"/>
             </CardBox>
           </Row>
           <Row>
@@ -121,7 +196,7 @@ class Lucity extends Component {
             <CardBox width="6" title="Grouped By WO_ACTN_TY">
               <DataGridURL url='/api/lucity/work/groupby/WO_ACTN_TY'/>
             </CardBox>
-            <CardBox width="6" title="Grouped By WO_PROB_TY">
+            <CardBox width="6" title="Grouped By WO_STAT_TY">
               <DataGridURL url='/api/lucity/work/groupby/WO_STAT_TY'/>
             </CardBox>
           </Row>

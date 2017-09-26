@@ -12,3 +12,4 @@ export * from './CardBox';
 export * from './MuiBasicTable';
 export * from './MuiTableURL';
 export * from './DialogModal';
+export * from './ChartRowBar';

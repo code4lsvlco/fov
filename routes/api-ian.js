@@ -69,6 +69,35 @@ var getQuery = function(query,res) {
   })
 };
 
+var queryAccountBudgetAmounts = function(filters = {}, sort = {},res) {
+  var query = "SELECT TOP 100" +
+    " AD.AccountId, AD.LongDescription, AD.ShortDescription," +
+    " AD.OrganizationCode, AD.OrgLongDescription, AD.OrgShortDescription," +
+    " AD.ObjectCode, AD.ObjLongDescription, AD.ObjShortDescription," +
+    " AD.ProjectCode, AD.ProjectTitle," +
+    " AD.SegmentOne, AD.SegmentOneDescription," +
+    " AD.SegmentTwo, AD.SegmentTwoDescription," +
+    " AD.SegmentThree, AD.SegmentThreeDescription," +
+    " AD.SegmentFour, AD.SegmentFourDescription," +
+    " AD.SegmentFive, AD.SegmentFiveDescription," +
+    " AD.SegmentSix, AD.SegmentSixDescription," +
+    " AD.SegmentSeven, AD.SegmentSevenDescription," +
+    " AD.SegmentEight, AD.SegmentEightDescription," +
+    " A.FullAccount, A.Status, A.AccountType," +
+    " A.Revised_CY, A.Revised_NY, A.Revised_LY1," +
+    " A.OriginalBudget_CY, A.OriginalBudget_NY, A.OriginalBudget_LY1," +
+    " A.MemoBalance_CY, A.MemoBalance_NY, A.MemoBalance_LY1," +
+    " A.Encumbrance_CY, A.Encumbrance_NY, A.Encumbrance_LY1," +
+    " A.TransferIn_CY, A.TransferIn_NY, A.TransferIn_LY1," +
+    " A.TransferOut_CY, A.TransferOut_NY, A.TransferOut_LY1" +
+    " FROM dbo.AccountDescriptions AD" +
+    " INNER JOIN dbo.Accounts A ON AD.AccountId = A.Id" +
+    // " WHERE AD.OrganizationCode = 101600" +
+    // " AND AD.ObjLongDescription LIKE 'Lucity%'" +
+    " ORDER BY AD.OrganizationCode, AD.ObjectCode" +
+    ";"
+}
+
 /* GET index page. */
 router.get('/', function(req, res, next) {
   res.json({ title: 'api/ian' });
@@ -84,6 +113,38 @@ router.get('/', function(req, res, next) {
 //       res.json(err);
 //   });
 // });
+
+// Library Example
+// OrganizationCode [101600] => 101-SegmentOne,Fund 600-SegmentFive,Division
+// ObjectCode [526210] => 526-xxx,xxx 210-xxx,Object
+// Fund-SegmentOne
+// Department-SegmentTwo
+// Program-SegmentThree
+// SubProgram-SegmentFour
+// Division-SegmentFive
+router.get('/budget', function(req, res, next) {
+
+  getQuery(query,res);
+  // new sql.Request().query(query, function(err, recordset) {
+  //   res.json(recordset);
+  // });
+});
+
+// Library Example
+// "AccountId": 7271
+// OrganizationCode [101600] => 101-SegmentOne,Fund 600-SegmentFive,Division
+// ObjectCode [526210] => 526-xxx,xxx 210-xxx,Object
+router.get('/test', function(req, res, next) {
+  var query = "SELECT TOP 100 *" +
+    // " FROM dbo.gl_history"
+    // " From dbo.Accounts WHERE LongDescription LIKE '%Lucity%'"
+    // " FROM dbo.Accounts WHERE Id = 7271" +
+    // " FROM dbo.MasterBals WHERE AccountId = 7271" +
+    // " FROM dbo.MasterBalHistories WHERE AccountId = 7271" +
+    // " ORDER BY OrganizationCode, ObjectCode" +
+    ";"
+  getQuery(query,res);
+});
 
 // {
 // "AccountId": 4894,
@@ -135,18 +196,18 @@ router.get('/account/descriptions', function(req, res, next) {
   // });
 });
 
-router.get('/account/descriptions/water', function(req, res, next) {
-  var query = "SELECT DISTINCT LongDescription, OrganizationCode, ObjectCode, SegmentOneDescription, SegmentTwoDescription, SegmentThreeDescription, SegmentFourDescription, SegmentFiveDescription" +
-    " FROM dbo.AccountDescriptions" +
-    " WHERE SegmentOne = 501" +
-    " AND SegmentTwoDescription <> 'Non Functional' " +
-    " ORDER BY OrganizationCode, ObjectCode" +
-    ";"
-  getQuery(query,res);
-  // new sql.Request().query(query, function(err, recordset) {
-  //   res.json(recordset);
-  // });
-});
+// router.get('/account/descriptions/water', function(req, res, next) {
+//   var query = "SELECT DISTINCT LongDescription, OrganizationCode, ObjectCode, SegmentOneDescription, SegmentTwoDescription, SegmentThreeDescription, SegmentFourDescription, SegmentFiveDescription" +
+//     " FROM dbo.AccountDescriptions" +
+//     " WHERE SegmentOne = 501" +
+//     " AND SegmentTwoDescription <> 'Non Functional' " +
+//     " ORDER BY OrganizationCode, ObjectCode" +
+//     ";"
+//   getQuery(query,res);
+//   // new sql.Request().query(query, function(err, recordset) {
+//   //   res.json(recordset);
+//   // });
+// });
 
 // {
 // "Id": 4876,
@@ -164,9 +225,9 @@ router.get('/account/descriptions/water', function(req, res, next) {
 // "ProjectCode": null
 // }
 
-router.get('/account/segments', function(req, res, next) {
-  getTop100("dbo.AccountSegments",res);
-});
+// router.get('/account/segments', function(req, res, next) {
+//   getTop100("dbo.AccountSegments",res);
+// });
 
 // {
 // "Id": 170,
@@ -374,9 +435,9 @@ router.get('/account/histories', function(req, res, next) {
 // }
 
 router.get('/accounts', function(req, res, next) {
-  // getTop100("dbo.Accounts",res);
-  var query = "SELECT DISTINCT IsBudgetary FROM dbo.Accounts;"
-  getQuery(query,res);
+  getTop100("dbo.Accounts",res);
+  // var query = "SELECT DISTINCT * FROM dbo.Accounts;"
+  // getQuery(query,res);
 });
 
 router.get('/addresses', function(req, res, next) {
@@ -532,8 +593,6 @@ router.get('/gl/journal/master/balance', function(req, res, next) {
   getTop100("dbo.MasterBals",res);
 });
 
-// dbo.MasterBalHistories
-// dbo.MasterBals
 // dbo.PurchaseOrders
 // dbo.Requisitions
 // dbo.RequisitionItems

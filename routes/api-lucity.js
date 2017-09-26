@@ -73,9 +73,26 @@ router.get('/work', function(req, res, next) {
   getTop100("dbo.WKORDER",res);
 });
 
+router.get('/work/status/open', function(req, res, next) {
+  // var field = req.params.field;
+  var query = "SELECT WO_STRT_DT, WO_NUMBER, WO_CAT_TY, WO_PROB_TY, WO_ACTN_TY, WO_EMP_TY FROM dbo.WKORDER WHERE WO_STAT_TY = 'New Work Order' ORDER BY WO_STRT_DT DESC;";
+  getQuery(query,res);
+});
+
+router.get('/work/example/1', function(req, res, next) {
+  var field = req.params.field;
+  var query = 'SELECT sum("dbo"."WKORDER"."WO_LH_ACT") AS "sum", "dbo"."WKORDER"."WO_ACTN_TY" AS "WO_ACTN_TY"' +
+              'FROM "dbo"."WKORDER"' +
+              // 'WHERE ("dbo"."WKORDER"."WO_CAT_TY" = ?' +
+              // 'OR "dbo"."WKORDER"."WO_CAT_TY" = ? OR "dbo"."WKORDER"."WO_CAT_TY" = ?)' +
+              'GROUP BY "dbo"."WKORDER"."WO_ACTN_TY"' +
+              'ORDER BY "sum" DESC, "dbo"."WKORDER"."WO_ACTN_TY" ASC'
+  getQuery(query,res);
+});
+
 router.get('/work/groupby/:field', function(req, res, next) {
   var field = req.params.field;
-  var query = 'SELECT ' + field + ', count(*) as Count FROM dbo.WKORDER GROUP BY ' + field + ' ORDER BY Count DESC;';
+  var query = 'SELECT ' + field + ', count(*) as count FROM dbo.WKORDER GROUP BY ' + field + ' ORDER BY count DESC;';
   getQuery(query,res);
 });
 
@@ -83,13 +100,13 @@ router.get('/work/groupby/:field1/:field2', function(req, res, next) {
   var field1 = req.params.field1;
   var field2 = req.params.field2;
   var select = field1 + ", " + field2;
-  var query = 'SELECT ' + select + ', count(*) as Count FROM dbo.WKORDER GROUP BY ' + select + ' ORDER BY ' + field1 + ', Count ASC;';
+  var query = 'SELECT ' + select + ', count(*) as count FROM dbo.WKORDER GROUP BY ' + select + ' ORDER BY ' + field1 + ', count ASC;';
   getQuery(query,res);
 });
 
 router.get('/request/groupby/:field', function(req, res, next) {
   var field = req.params.field;
-  var query = 'SELECT ' + field + ', count(*) as Count FROM dbo.WKREQ GROUP BY ' + field + ' ORDER BY Count DESC;';
+  var query = 'SELECT ' + field + ', count(*) as count FROM dbo.WKREQ GROUP BY ' + field + ' ORDER BY count DESC;';
   getQuery(query,res);
 });
 
