@@ -17,7 +17,7 @@ class DataGridURL extends Component {
   componentDidMount() {
     axios.get(this.props.url)
       .then(res => {
-        const data = res.data.recordset ;
+        let data = res.data.recordset ;
         const dataKeys = _.keys(data[0]);
         const dataKeyName = _.map(dataKeys,(key) => {return { key: key, name: key }});
         this.setState({ columns: dataKeyName, rows: data });

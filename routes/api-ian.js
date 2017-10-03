@@ -29,7 +29,7 @@ var config_mutest = {
 
 try {
   console.log("Creating sqlPoolMuLive");
-  var sqlPoolMuLive = new sqlIan.ConnectionPool(config_mutest).connect();
+  var sqlPoolMuLive = new sqlIan.ConnectionPool(config_mulive).connect();
 }
 catch(e) {;
   console.log("api-ian.js");
@@ -69,8 +69,11 @@ var getQuery = function(query,res) {
   })
 };
 
-var queryAccountBudgetAmounts = function(filters = {}, sort = {},res) {
-  var query = "SELECT TOP 100" +
+var queryAccountBudgetAmounts = function(queryParams = {}, res) {
+  // ["A.AccountType = 'E'"]
+  let where = "";
+  if (queryParams.where) where = queryParams.where.map((and) => {return ` AND ${and}`})
+  var query = "SELECT DISTINCT" +
     " AD.AccountId, AD.LongDescription, AD.ShortDescription," +
     " AD.OrganizationCode, AD.OrgLongDescription, AD.OrgShortDescription," +
     " AD.ObjectCode, AD.ObjLongDescription, AD.ObjShortDescription," +
@@ -92,15 +95,22 @@ var queryAccountBudgetAmounts = function(filters = {}, sort = {},res) {
     " A.TransferOut_CY, A.TransferOut_NY, A.TransferOut_LY1" +
     " FROM dbo.AccountDescriptions AD" +
     " INNER JOIN dbo.Accounts A ON AD.AccountId = A.Id" +
+    " WHERE A.Status = 'A'" + where +
+    // " AND A.AccountType = 'E'" +
     // " WHERE AD.OrganizationCode = 101600" +
     // " AND AD.ObjLongDescription LIKE 'Lucity%'" +
     " ORDER BY AD.OrganizationCode, AD.ObjectCode" +
     ";"
+    console.log(query);
+    getQuery(query,res);
 }
 
 /* GET index page. */
 router.get('/', function(req, res, next) {
   res.json({ title: 'api/ian' });
+  // new sql.Request().query(query, function(err, recordset) {
+  //   res.json(recordset);
+  // });
 });
 
 // router.get('/gl_history', function(req, res, next) {
@@ -123,11 +133,15 @@ router.get('/', function(req, res, next) {
 // SubProgram-SegmentFour
 // Division-SegmentFive
 router.get('/budget', function(req, res, next) {
+  queryAccountBudgetAmounts({},res);
+});
 
-  getQuery(query,res);
-  // new sql.Request().query(query, function(err, recordset) {
-  //   res.json(recordset);
-  // });
+router.get('/budget/expenses', function(req, res, next) {
+  queryAccountBudgetAmounts({ where: ["A.AccountType = 'E'"]},res);
+});
+
+router.get('/budget/revenues', function(req, res, next) {
+  queryAccountBudgetAmounts({ where: ["A.AccountType = 'R'"]},res);
 });
 
 // Library Example
@@ -137,11 +151,13 @@ router.get('/budget', function(req, res, next) {
 router.get('/test', function(req, res, next) {
   var query = "SELECT TOP 100 *" +
     // " FROM dbo.gl_history"
-    // " From dbo.Accounts WHERE LongDescription LIKE '%Lucity%'"
+    " From dbo.Accounts WHERE AccountType = 'E' AND Status = 'A'" +
+    " AND FullAccount LIKE '%-520100-%'"
+    // " AND OrganizationCode = '101110' And ObjectCode = '520100'"
     // " FROM dbo.Accounts WHERE Id = 7271" +
     // " FROM dbo.MasterBals WHERE AccountId = 7271" +
     // " FROM dbo.MasterBalHistories WHERE AccountId = 7271" +
-    // " ORDER BY OrganizationCode, ObjectCode" +
+    " ORDER BY OrganizationCode, ObjectCode" +
     ";"
   getQuery(query,res);
 });

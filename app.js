@@ -39,12 +39,14 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var api_ian = require('./routes/api-ian');
 var api_lucity = require('./routes/api-lucity');
+var api_precise = require('./routes/api-precise');
 
 app.use('/auth/', authentication);
 app.use('/', index);
 app.use('/users', users);
 app.use('/api/ian',api_ian);
 app.use('/api/lucity',api_lucity);
+app.use('/api/gps',api_precise);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,17 +1,22 @@
 import React from 'react';
 import { DefaultLayout, DataGridURL, Row, CardBox } from '../common'
+import { BudgetBox } from './components/BudgetBox';
+import { Paper } from 'material-ui';
+
+import {Grid, Cell} from 'material-grid/dist';
+import 'material-grid/dist/css/material-grid.css';
 
 const Ian = () => {
   return (
     <div>
       <DefaultLayout>
-        <div className="wrapper wrapper-content">
-          <Row>
-            <CardBox width="12" title="/budget">
-              <DataGridURL url='/api/ian/budget'/>
-            </CardBox>
-          </Row>
-        </div>
+        <Grid>
+          <Cell col={12}>
+            <Paper>
+              <BudgetBox url='/api/ian/budget/expenses'/>
+            </Paper>
+          </Cell>
+        </Grid>
       </DefaultLayout>
     </div>
   )

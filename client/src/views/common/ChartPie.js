@@ -42,10 +42,10 @@ class ChartRowBar extends Component {
       <ReactHighcharts config={
         {
             chart: {
-              type: 'bar'
+                type: 'bar'
             },
             title: {
-                text: this.props.title
+                text: ''
             },
             subtitle: {
                 text: ''
@@ -63,9 +63,8 @@ class ChartRowBar extends Component {
                     align: 'high'
                 },
                 labels: {
-                  overflow: 'justify'
-                },
-                step: 1
+                    // overflow: 'justify'
+                }
             },
             tooltip: {
                 valueSuffix: ''

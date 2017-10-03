@@ -9,7 +9,9 @@ import { Header, SideBar } from './common';
 import { Home ,
          Lucity,
          Precise,
+         Snow,
          Ian,
+         GridView,
          Users,
          Signin,
          Signout,
@@ -17,13 +19,15 @@ import { Home ,
          PrivateRoute,
          Page as Page404 } from './indexViews';
 
+// TODO: Cleanup commented components and css imports.
+
 // import lightTheme from './app/themes/lightTheme';
 // import darkTheme from './app/themes/darkTheme';
 // import grayTheme from './app/themes/grayTheme';
 
 // Stylesheets
-import 'bootstrap/dist/css/bootstrap.css';
-import './stylesheets/app.css';
+// import 'bootstrap/dist/css/bootstrap.css';
+// import './stylesheets/app.css';
 
 class App extends Component {
   componentDidMount() {}
@@ -39,7 +43,9 @@ class App extends Component {
             <PrivateRoute exact path="/" authenticated={authenticated} component={Home} />
             <PrivateRoute exact path="/lucity" authenticated={authenticated} component={Lucity} />
             <PrivateRoute exact path="/precise" authenticated={authenticated} component={Precise} />
+            <PrivateRoute exact path="/snow" authenticated={authenticated} component={Snow} />
             <PrivateRoute exact path="/ian/ian" authenticated={authenticated} component={Ian} />
+            <PrivateRoute exact path="/grid" authenticated={authenticated} component={GridView} />
             <PrivateRoute exact path="/settings/users" authenticated={authenticated} component={Users} />
             {/* <Route path={`${match.url}app`} component={MainApp} /> */}
             <Route exact path="/404" component={Page404} />

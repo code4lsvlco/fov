@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { DefaultLayout, Row, CardBox, DataGridArray, DataGridURL, ChartRowBar } from '../common';
-// import { DefaultLayout } from '../common'
+import { DefaultLayout, Row, CardBox, DataGridArray, DataGridURL, ChartRowBar, ChartColumnBar, ChartDateTime } from '../common';
 import ReactHighcharts from 'react-highcharts';
 import axios from 'axios';
 import _ from 'lodash';
-import { Card, CardHeader } from 'material-ui';
+import { Paper, Card, CardHeader } from 'material-ui';
+import {Grid, Cell} from 'material-grid/dist';
+import 'material-grid/dist/css/material-grid.css';
 
 const configLine = {
   xAxis: {
@@ -64,68 +65,6 @@ const configPie = {
         }]
     }
 
-const configRowBar = {
-    chart: {
-        type: 'bar'
-    },
-    title: {
-        text: 'Historic World Population by Region'
-    },
-    subtitle: {
-        text: 'Source: <a href="https://en.wikipedia.org/wiki/World_population">Wikipedia.org</a>'
-    },
-    xAxis: {
-        categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
-        title: {
-            text: null
-        }
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'Population (millions)',
-            align: 'high'
-        },
-        labels: {
-            overflow: 'justify'
-        }
-    },
-    tooltip: {
-        valueSuffix: ' millions'
-    },
-    plotOptions: {
-        bar: {
-            dataLabels: {
-                enabled: true
-            }
-        }
-    },
-    legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'top',
-        x: -40,
-        y: 80,
-        floating: true,
-        borderWidth: 1,
-        backgroundColor: ('#FFFFFF'),
-        shadow: true
-    },
-    credits: {
-        enabled: false
-    },
-    series: [{
-        name: 'Year 1800',
-        data: [107, 31, 635, 203, 2]
-    }, {
-        name: 'Year 1900',
-        data: [133, 156, 947, 408, 6]
-    }, {
-        name: 'Year 2012',
-        data: [1052, 954, 4250, 740, 38]
-    }]
-};
-
 class Lucity extends Component {
   // constructor(props) {
   //   super(props);
@@ -164,37 +103,46 @@ class Lucity extends Component {
       <DefaultLayout>
         <div className="wrapper wrapper-content">
           <Row>
-            <CardBox width="12" title="Example #1">
+            <CardBox width="12" title="Work Order By End Date">
+              <ChartDateTime url='/api/lucity/work/groupby/WO_END_DT' category="WO_END_DT" series="count"/>
+            </CardBox>
+          </Row>
+          <Row>
+            <CardBox width="12" title="Current Open Work Orders">
               <DataGridURL url='/api/lucity/work/status/open'/>
             </CardBox>
           </Row>
           <Row>
-            <CardBox width="6" title="Example #1">
+            <CardBox width="6" title="Work Orders by Category">
               <ChartRowBar url='/api/lucity/work/groupby/WO_CAT_TY' category="WO_CAT_TY" series="count"/>
             </CardBox>
-            <CardBox width="6" title="Highcharts Pie Chart with Legend">
+            <CardBox width="6" title="Work Orders by Problem">
               <ChartRowBar url='/api/lucity/work/groupby/WO_PROB_TY' category="WO_PROB_TY" series="count"/>
             </CardBox>
           </Row>
+          <Grid>
+            <Cell col={12}>
+              <Paper>
+                <ChartRowBar url='/api/lucity/work/groupby/WO_ACTN_TY' category="WO_ACTN_TY" series="count" title="Grouped By WO_ACTN_TY"/>
+              </Paper>
+            </Cell>
+          </Grid>
           <Row>
-            <CardBox width="6" title="Highcharts Pie Chart">
-              <ChartRowBar url='/api/lucity/work/groupby/WO_ACTN_TY' category="WO_ACTN_TY" series="count"/>
-            </CardBox>
-            <CardBox width="6" title="Highcharts Pie Chart with Legend">
-              <ChartRowBar url='/api/lucity/work/example/1' category="WO_ACTN_TY" series="sum"/>
+            <CardBox width="6" title="Grouped By WO_ACTN_TY">
+              <DataGridURL url='/api/lucity/work/groupby/WO_ACTN_TY'/>
             </CardBox>
           </Row>
           <Row>
             <CardBox width="6" title="Grouped By WO_CAT_TY WO_PROB_TY">
               <DataGridURL url='/api/lucity/work/groupby/WO_CAT_TY/WO_PROB_TY'/>
             </CardBox>
-            <CardBox width="6" title="Grouped By WO_PROB_TY">
-              <DataGridURL url='/api/lucity/work/groupby/WO_PROB_TY'/>
+            <CardBox width="6" title="Grouped By WO_CRT_BY">
+              <DataGridURL url='/api/lucity/work/groupby/WO_CRT_BY'/>
             </CardBox>
           </Row>
           <Row>
-            <CardBox width="6" title="Grouped By WO_ACTN_TY">
-              <DataGridURL url='/api/lucity/work/groupby/WO_ACTN_TY'/>
+            <CardBox width="6" title="Grouped By RQ_STAT_TY">
+              <DataGridURL url='/api/lucity/request/groupby/RQ_STAT_TY'/>
             </CardBox>
             <CardBox width="6" title="Grouped By WO_STAT_TY">
               <DataGridURL url='/api/lucity/work/groupby/WO_STAT_TY'/>
@@ -206,14 +154,6 @@ class Lucity extends Component {
             </CardBox>
             <CardBox width="6" title="Grouped By WO_PRIORTY">
               <DataGridURL url='/api/lucity/work/groupby/WO_PRIORTY'/>
-            </CardBox>
-          </Row>
-          <Row>
-            <CardBox width="6" title="Grouped By WO_STRT_DT">
-              <DataGridURL url='/api/lucity/work/groupby/WO_STRT_DT'/>
-            </CardBox>
-            <CardBox width="6" title="Grouped By WO_END_DT">
-              <DataGridURL url='/api/lucity/work/groupby/WO_END_DT'/>
             </CardBox>
           </Row>
           <Row>
@@ -238,14 +178,6 @@ class Lucity extends Component {
             </CardBox>
             <CardBox width="6" title="Grouped By WO_ADESC2">
               <DataGridURL url='/api/lucity/work/groupby/WO_ADESC2'/>
-            </CardBox>
-          </Row>
-          <Row>
-            <CardBox width="6" title="Grouped By WO_CRT_BY">
-              <DataGridURL url='/api/lucity/work/groupby/WO_CRT_BY'/>
-            </CardBox>
-            <CardBox width="6" title="Grouped By RQ_STAT_TY">
-              <DataGridURL url='/api/lucity/request/groupby/RQ_STAT_TY'/>
             </CardBox>
           </Row>
         </div>

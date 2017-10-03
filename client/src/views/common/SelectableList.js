@@ -23,6 +23,7 @@ function wrapState(ComposedComponent) {
     handleRequestChange = (event, index) => {
       if (!index) return;
       this.props.history.push(index)
+      console.log(index);
       this.setState({
         selectedIndex: index,
       });
