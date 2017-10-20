@@ -141,6 +141,11 @@ class Lucity extends Component {
             </CardBox>
           </Row>
           <Row>
+            <CardBox width="6" title="Grouped By WO_MOD_BY">
+              <DataGridURL url='/api/lucity/work/groupby/WO_MOD_BY'/>
+            </CardBox>
+          </Row>
+          <Row>
             <CardBox width="6" title="Grouped By RQ_STAT_TY">
               <DataGridURL url='/api/lucity/request/groupby/RQ_STAT_TY'/>
             </CardBox>

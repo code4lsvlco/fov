@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import classnames from 'classnames';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
-import { Header, SideBar } from './common';
 import { Home ,
          Lucity,
-         Precise,
+         Fleet,
+         Fleet2,
+         FleetShow,
          Snow,
          Ian,
          GridView,
@@ -19,15 +19,9 @@ import { Home ,
          PrivateRoute,
          Page as Page404 } from './indexViews';
 
-// TODO: Cleanup commented components and css imports.
-
-// import lightTheme from './app/themes/lightTheme';
-// import darkTheme from './app/themes/darkTheme';
-// import grayTheme from './app/themes/grayTheme';
-
 // Stylesheets
-// import 'bootstrap/dist/css/bootstrap.css';
-// import './stylesheets/app.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import './stylesheets/app.css';
 
 class App extends Component {
   componentDidMount() {}
@@ -35,17 +29,18 @@ class App extends Component {
   render() {
     const { authenticated } = this.props;
     return (
-      // muiTheme={getMuiTheme(lightTheme)}
       <MuiThemeProvider >
         <div id="wrapper">
-          {/* <SideBar/> */}
           <Switch>
             <PrivateRoute exact path="/" authenticated={authenticated} component={Home} />
             <PrivateRoute exact path="/lucity" authenticated={authenticated} component={Lucity} />
-            <PrivateRoute exact path="/precise" authenticated={authenticated} component={Precise} />
+            <PrivateRoute exact path="/precise/fleet/:objectID" authenticated={authenticated} component={FleetShow} />
+            <PrivateRoute exact path="/precise/fleet" authenticated={authenticated} component={Fleet} />
+            <PrivateRoute exact path="/precise/fleet2" authenticated={authenticated} component={Fleet2} />
             <PrivateRoute exact path="/snow" authenticated={authenticated} component={Snow} />
-            <PrivateRoute exact path="/ian/ian" authenticated={authenticated} component={Ian} />
-            <PrivateRoute exact path="/grid" authenticated={authenticated} component={GridView} />
+            <PrivateRoute exact path="/ian/expenses" authenticated={authenticated} component={Ian} />
+            <PrivateRoute exact path="/ian/revenues" authenticated={authenticated} component={Ian} />
+            <PrivateRoute exact path="/settings/grid" authenticated={authenticated} component={GridView} />
             <PrivateRoute exact path="/settings/users" authenticated={authenticated} component={Users} />
             {/* <Route path={`${match.url}app`} component={MainApp} /> */}
             <Route exact path="/404" component={Page404} />
@@ -54,7 +49,6 @@ class App extends Component {
             {/* <Route exact path="/forgot-password" component={PageForgotPassword} /> */}
             {/* <Route exact path="/fullscreen" component={PageFullscreen} /> */}
             {/* <Route exact path="/lock-screen" component={PageLockScreen} /> */}
-            {/* <Route exact path="/login" component={PageLogin} /> */}
             <Route exact path="/signin" component={Signin} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/signout" component={Signout} />

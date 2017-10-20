@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { DefaultLayout, Row, CardBox, MuiBasicTable, MuiTableURL } from '../../common';
+import { DefaultLayout } from '../../common';
+import { UsersMuiTableURL } from './components/UsersMuiTableURL';
 import {
   Table,
   TableBody,
@@ -10,21 +11,25 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
+import { Paper } from 'material-ui';
+
+import {Grid, Cell} from 'material-grid/dist';
+import 'material-grid/dist/css/material-grid.css';
+
 let Users = (props) => {
   return (
     <DefaultLayout>
-      <div className="wrapper wrapper-content">
-        <Row>
-          <div className={"col-sm-12"} style={{ paddingBottom: 20}}>
-            <MuiTableURL
+      <Grid>
+        <Cell col={12}>
+          <Paper>
+            <UsersMuiTableURL
               url="/users"
               idKey="_id"
               omitKeys={['_id', '__v', 'password']}
-              
             />
-          </div>
-        </Row>
-      </div>
+          </Paper>
+        </Cell>
+      </Grid>
     </DefaultLayout>
   )
 }

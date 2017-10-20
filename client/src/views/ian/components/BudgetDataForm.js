@@ -23,7 +23,7 @@ const getValues = (rows,field) => {
 
 const BudgetDataForm = (props) => {
   let rows = props.rows;
-  console.log(rows);
+  // console.log(rows);
   let originalRows = props.originalRows;
   let original_budget, revised_budget, balance, remaining = 0;
   if (rows.length > 0) {

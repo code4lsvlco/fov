@@ -1,7 +1,6 @@
 export * from './DefaultLayout';
 export * from './Header';
 export * from './SideBar';
-export * from './SideBarMenuItems';
 export * from './ReactDataGrid/DataGridURL';
 export * from './ReactDataGrid/DataGridArray';
 export * from './Row';

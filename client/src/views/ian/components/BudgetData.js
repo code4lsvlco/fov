@@ -17,6 +17,7 @@ class BudgetData extends Component {
     super(props);
 
     this.state = {
+      url: this.props.url,
       rows: [],
       originalRows: [],
       columns: [],
@@ -38,17 +39,32 @@ class BudgetData extends Component {
       .then(res => {
         let data = res.data.recordset;
         const dataTransform = data.map((row) => {
-          let spent = row.Revised_CY > 0 ? (row.MemoBalance_CY/row.Revised_CY * 100) : 100;
-          spent = row.MemoBalance_CY == 0 ? 0 : spent;
-          return {
-            "Org Code": `${row.OrganizationCode} - ${row.SegmentFiveDescription}`,
-            "Obj Code": `${row.ObjectCode} - ${row.LongDescription}`,
-            "Original Budget": accounting.formatMoney(row.OriginalBudget_CY,"$",2),
-            "Revised Budget": accounting.formatMoney(row.Revised_CY,"$",2),
-            "Balance": accounting.formatMoney(row.MemoBalance_CY,"$",2),
-            "Remaining":  accounting.formatMoney(row.Revised_CY-row.MemoBalance_CY,"$",2),
-            "% Spent": accounting.toFixed(spent,2)
+          if (url.indexOf('expenses') > -1) {
+            let spent = row.Revised_CY > 0 ? (row.MemoBalance_CY/row.Revised_CY * 100) : 100;
+            spent = row.MemoBalance_CY == 0 ? 0 : spent;
+            return {
+              "Org Code": `${row.OrganizationCode} - ${row.SegmentFiveDescription}`,
+              "Obj Code": `${row.ObjectCode} - ${row.LongDescription}`,
+              "Original Budget": accounting.formatMoney(row.OriginalBudget_CY,"$",2),
+              "Revised Budget": accounting.formatMoney(row.Revised_CY,"$",2),
+              "Balance": accounting.formatMoney(row.MemoBalance_CY,"$",2),
+              "Remaining":  accounting.formatMoney(row.Revised_CY-row.MemoBalance_CY,"$",2),
+              "% Spent": accounting.toFixed(spent,2)
+            }
+          } else { // revenues
+            let spent = -row.Revised_CY > 0 ? (-row.MemoBalance_CY/-row.Revised_CY * 100) : 100;
+            spent = row.MemoBalance_CY == 0 ? 0 : spent;
+            return {
+              "Org Code": `${row.OrganizationCode} - ${row.SegmentFiveDescription}`,
+              "Obj Code": `${row.ObjectCode} - ${row.LongDescription}`,
+              "Original Budget": accounting.formatMoney(-row.OriginalBudget_CY,"$",2),
+              "Revised Budget": accounting.formatMoney(-row.Revised_CY,"$",2),
+              "Balance": accounting.formatMoney(-row.MemoBalance_CY,"$",2),
+              "Remaining":  accounting.formatMoney((-row.Revised_CY)-(-row.MemoBalance_CY),"$",2),
+              "% Spent": accounting.toFixed(spent,2)
+            }
           }
+
         })
         data = dataTransform;
         const dataKeys = _.keys(data[0]);
@@ -137,6 +153,7 @@ class BudgetData extends Component {
   }
 
   render() {
+    // console.log(this.state.url);
     return (
       <div>
         <BudgetDataForm

@@ -9,14 +9,7 @@ import { AUTH_USER, UNAUTH_USER } from './state/ducks/authentication/types';
 import registerServiceWorker from './registerServiceWorker';
 
 import App from './views/App';
-// import AppEnvato from './views/AppEnvato';
-import AppMaterialUI from './views/material-ui-test/AppMaterialUI';
-// import FullWidthGrid from './views/FullWidthGrid';
 import { Page as Page404 } from './views/404';
-
-const PlainJane = () => {
-  return (<div>Plain Jane Text is Working.</div>)
-}
 
 const token = localStorage.getItem('token');
 if (token) {

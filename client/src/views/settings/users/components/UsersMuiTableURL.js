@@ -14,10 +14,10 @@ import { Toolbar, ToolbarGroup, ToolbarTitle, FontIcon, IconButton } from 'mater
 import FontAwesome from 'react-fontawesome';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import { DialogModal } from '.';
+import { DialogModal } from '../../../common';
 
 // TODO - Add prop-types requirements.
-class MuiTableURL extends Component {
+class UsersMuiTableURL extends Component {
   constructor(props) {
     super(props);
 
@@ -27,31 +27,32 @@ class MuiTableURL extends Component {
       selectedRow: null,
     };
 
-    this.fetchData = this.fetchData.bind(this);
-    this.onCellClick = this.onCellClick.bind(this);
-    this.onRowSelection = this.onRowSelection.bind(this);
+    this._onCellClick = this._onCellClick.bind(this);
+    this._onRowSelection = this._onRowSelection.bind(this);
+    this._onDeleteClick = this._onDeleteClick.bind(this);
+    this._onInviteUserClick = this._onInviteUserClick.bind(this);
   }
 
-  fetchData(url) {
+  _fetchData(url) {
     axios.get(url, { headers: { authorization: localStorage.getItem('token') } })
       .then(res => {
-        let data = res.data;
+        const data = res.data;
         const dataKeys = _.keys(data[0]);
-        const columns = _.map(dataKeys,(key) => {return { key: key, name: key }});
-        this.setState({ columns: columns, rows: data });
+        const dataKeyName = _.map(dataKeys,(key) => {return { key: key, name: key }});
+        this.setState({ columns: dataKeyName, rows: data });
       })
       .catch(function (error) {
-        // console.log(error);
+        console.log(error);
         // TODO - Handle this error in a productive way.
         // this.setState({ columns: [], rows: [] });
       });
   }
 
   componentDidMount() {
-    this.fetchData(this.props.url);
+    this._fetchData(this.props.url);
   }
 
-  onRowSelection(rows) {
+  _onRowSelection(rows) {
     console.log('_onRowSelection');
     console.log(rows);
     console.log(rows.length);
@@ -59,31 +60,67 @@ class MuiTableURL extends Component {
     if (rows.length == 1) this.setState({selectedRow: rows[0]});
   }
 
-  onCellClick(rowNumber, columnNumber, evt) {
+  _onCellClick(rowNumber, columnNumber, evt) {
     // Do Something
     console.log('_onCellClick');
   }
 
+  _onDeleteClick(e){
+    const selectedRow = this.state.selectedRow;
+    const idKey = this.props.idKey;
+    const objectID = this.state.rows[selectedRow][idKey];
+    axios.delete(this.props.url, { headers: { authorization: localStorage.getItem('token') }, data: {id: objectID} })
+      .then(res => {
+        this.setState({selectedRow: null});
+        this._fetchData(this.props.url);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  _onInviteUserClick() {
+    console.log("_onInviteUserClick");
+    this.setState({showDialogModal: true});
+  };
+
   render() {
     const columnKeys = this.state.columns.map((column) => { return column.key });
     _.pullAll(columnKeys, this.props.omitKeys);
-    // console.log(columnKeys);
+
     const selectedRow = this.state.selectedRow;
+    console.log(this.state.showDialogModal)
 
     return (
       <div>
         <Toolbar style={{ backgroundColor: '#fff' }}>
           <div style={{ float: 'left' }}>
             <ToolbarGroup>
-              <ToolbarTitle text={this.props.title} />
+              <ToolbarTitle text="Users" />
             </ToolbarGroup>
           </div>
+
+            <div style={{ float: 'right' }}>
+              <ToolbarGroup>
+                { selectedRow !== null ?
+                  <IconButton onClick={this._onDeleteClick} >
+                    <ActionDelete />
+                  </IconButton>
+                :
+                  <IconButton onClick={this._onInviteUserClick} >
+                    <ContentAdd />
+                    <DialogModal />
+                  </IconButton>
+                }
+              </ToolbarGroup>
+            </div>
+
         </Toolbar>
-        <Table onRowSelection={this.onRowSelection} onCellClick={this.onCellClick}>
+        <Table onRowSelection={this._onRowSelection} onCellClick={this._onCellClick}>
           <TableHeader displaySelectAll={false}>
             <TableRow>
-              {columnKeys.map(function(heading){
-                return <TableHeaderColumn>{ heading }</TableHeaderColumn>;
+              {columnKeys.map(function(title){
+                return <TableHeaderColumn>{ title }</TableHeaderColumn>;
               })}
             </TableRow>
           </TableHeader>
@@ -92,7 +129,7 @@ class MuiTableURL extends Component {
               return (
                 <TableRow selected={selectedRow == index ? true : false}>
                   {columnKeys.map(function(key){
-                    return <TableRowColumn>{ row[key] ? row[key].toString() : "" }</TableRowColumn>
+                    return <TableRowColumn>{ row[key].toString() }</TableRowColumn>
                   })}
                 </TableRow>
               );
@@ -106,4 +143,4 @@ class MuiTableURL extends Component {
 
 };
 
-export { MuiTableURL };
+export { UsersMuiTableURL };

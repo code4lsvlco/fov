@@ -1,0 +1,4 @@
+client: DEBUG=fov:* nodemon ./bin/www
+server: npm run start --prefix client
+sync_tripdata: nodemon ./workers/sync_tripdata.js
+sync_polling: nodemon ./workers/sync_polling.js

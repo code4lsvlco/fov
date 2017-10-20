@@ -4035,6 +4035,14 @@ lodash.merge@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.0.tgz#69884ba144ac33fe699737a6086deffadd0f89c5"
 
+lodash.range@^3.1.4:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/lodash.range/-/lodash.range-3.2.0.tgz#f461e588f66683f7eadeade513e38a69a565a15d"
+
+lodash.reduce@^4.3.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/lodash.reduce/-/lodash.reduce-4.6.0.tgz#f1ab6b839299ad48f784abbf476596f03b914d3b"
+
 lodash.template@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.template/-/lodash.template-4.4.0.tgz#e73a0385c8355591746e020b99679c690e68fba0"
@@ -5273,6 +5281,13 @@ react-bullet-graph@^0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/react-bullet-graph/-/react-bullet-graph-0.0.3.tgz#8e4c87f66abb762af1818007085b7886757d2b72"
 
+react-calendar-heatmap@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/react-calendar-heatmap/-/react-calendar-heatmap-1.5.0.tgz#6f9ca245e4e5873bd05dd8596402ecfb7330ecb4"
+  dependencies:
+    lodash.range "^3.1.4"
+    lodash.reduce "^4.3.0"
+
 react-component-managers@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/react-component-managers/-/react-component-managers-3.0.2.tgz#33fb1eb83e769455eaaafae1e5b6ed603ff9380f"
@@ -5367,6 +5382,10 @@ react-highcharts@^12.0.0:
   resolved "https://registry.yarnpkg.com/react-highcharts/-/react-highcharts-12.0.0.tgz#a7c8b5f5b56b37afe8e7fe02ec8bee72e376158a"
   dependencies:
     highcharts "^5.0.0"
+
+react-hint@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/react-hint/-/react-hint-2.0.3.tgz#e8f7584fe1568d55cdee75b7a09f0f3452ccf671"
 
 react-input-autosize@^2.0.1:
   version "2.0.1"

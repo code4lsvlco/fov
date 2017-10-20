@@ -9,9 +9,12 @@ const Header = () => (
     title=""
     showMenuIconButton={false}
     iconElementRight={
-      <Link to={`/signout`}>
-        <FlatButton label="Log out" icon={<FontAwesome name='sign-out'/>} />
-      </Link>}
+        <div style={{marginTop: 4}}>
+          <Link to={`/signout`}>
+            <FlatButton label="Log out" icon={<FontAwesome name='sign-out'/>} />
+          </Link>
+        </div>
+      }
     style={{ backgroundColor: '#fff' }}
     zDepth={1}
   />

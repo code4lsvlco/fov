@@ -37,16 +37,18 @@ mongoose.connect(process.env.MONGODB_URI);
 var authentication = require('./routes/authentication');
 var index = require('./routes/index');
 var users = require('./routes/users');
-var api_ian = require('./routes/api-ian');
-var api_lucity = require('./routes/api-lucity');
-var api_precise = require('./routes/api-precise');
+var apiIan = require('./routes/api/ian');
+var apiLucity = require('./routes/api/lucity');
+var apiFleet = require('./routes/api/fleet');
+// var apiPrecise = require('./routes/api/precise');
 
 app.use('/auth/', authentication);
 app.use('/', index);
 app.use('/users', users);
-app.use('/api/ian',api_ian);
-app.use('/api/lucity',api_lucity);
-app.use('/api/gps',api_precise);
+app.use('/api/ian',apiIan);
+app.use('/api/lucity',apiLucity);
+app.use('/api/fleet',apiFleet);
+// app.use('/api/precise',apiPrecise);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
