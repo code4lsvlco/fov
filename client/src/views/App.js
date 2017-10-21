@@ -10,6 +10,7 @@ import { Home ,
          Fleet2,
          FleetShow,
          Snow,
+         Scada,
          Ian,
          GridView,
          Users,
@@ -38,6 +39,7 @@ class App extends Component {
             <PrivateRoute exact path="/precise/fleet" authenticated={authenticated} component={Fleet} />
             <PrivateRoute exact path="/precise/fleet2" authenticated={authenticated} component={Fleet2} />
             <PrivateRoute exact path="/snow" authenticated={authenticated} component={Snow} />
+            <PrivateRoute exact path="/scada" authenticated={authenticated} component={Scada} />
             <PrivateRoute exact path="/ian/expenses" authenticated={authenticated} component={Ian} />
             <PrivateRoute exact path="/ian/revenues" authenticated={authenticated} component={Ian} />
             <PrivateRoute exact path="/settings/grid" authenticated={authenticated} component={GridView} />

@@ -67,6 +67,11 @@ const SideBar = withRouter((props) => (
         style={ props.location.pathname === "/snow" ? {color: '#FFF'} : {color: '#a7b1c2'}}
       />
       <ListItem
+        value={"/scada"}
+        primaryText="SCADA"
+        style={ props.location.pathname === "/scada" ? {color: '#FFF'} : {color: '#a7b1c2'}}
+      />
+      <ListItem
         value={false}
         primaryTogglesNestedList={true}
         primaryText="Settings"

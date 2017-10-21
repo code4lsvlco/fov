@@ -6,6 +6,7 @@ export * from './precise/Fleet2';
 export * from './precise/FleetShow';
 export * from './snow';
 export * from './ian';
+export * from './scada';
 export * from './grid';
 export * from './settings/users';
 export * from './404';

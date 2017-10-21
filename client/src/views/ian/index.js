@@ -66,7 +66,7 @@ class Ian extends Component {
                 <br/>
                 {window.location.pathname}
                 <BudgetData
-                  url={`/api/ian/budget/${this.getSubURL(this.props.location.pathname)}`}
+                  url={`/api/ian/munis/budget/${this.getSubURL(this.props.location.pathname)}`}
                 />
               </Paper>
             </Cell>

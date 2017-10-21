@@ -127,6 +127,13 @@ class Lucity extends Component {
               </Paper>
             </Cell>
           </Grid>
+          <Grid>
+            <Cell col={12}>
+              <Paper>
+                <ChartRowBar url='/api/lucity/work/example/1' category="WO_ACTN_TY" series="sum" title="Hours By WO_ACTN_TY"/>
+              </Paper>
+            </Cell>
+          </Grid>
           <Row>
             <CardBox width="6" title="Grouped By WO_ACTN_TY">
               <DataGridURL url='/api/lucity/work/groupby/WO_ACTN_TY'/>

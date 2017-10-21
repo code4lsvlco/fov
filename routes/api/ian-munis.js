@@ -15,24 +15,12 @@ var config_mulive = {
     // }
 };
 
-var config_mutest = {
-    user: process.env.IAN_USER,
-    password: process.env.IAN_PASSWORD,
-    server: process.env.IAN_SERVER_IP, // You can use 'localhost\\instance' to connect to named instance
-    port: process.env.IAN_SERVER_PORT,
-    database: process.env.IAN_DATABASE_TEST
-
-    // options: {
-    //     encrypt: true // Use this if you're on Windows Azure
-    // }
-};
-
 try {
   console.log("Creating sqlPoolMuLive");
   var sqlPoolMuLive = new sqlIan.ConnectionPool(config_mulive).connect();
 }
 catch(e) {;
-  console.log("api-ian.js");
+  console.log("ian.js");
   console.log(e);
   // console.log("Closing sqlPoolMuLive");
   // sqlIan.close();
@@ -207,23 +195,7 @@ router.get('/account/descriptions', function(req, res, next) {
     " ORDER BY OrganizationCode, ObjectCode" +
     ";"
   getQuery(query,res);
-  // new sql.Request().query(query, function(err, recordset) {
-  //   res.json(recordset);
-  // });
 });
-
-// router.get('/account/descriptions/water', function(req, res, next) {
-//   var query = "SELECT DISTINCT LongDescription, OrganizationCode, ObjectCode, SegmentOneDescription, SegmentTwoDescription, SegmentThreeDescription, SegmentFourDescription, SegmentFiveDescription" +
-//     " FROM dbo.AccountDescriptions" +
-//     " WHERE SegmentOne = 501" +
-//     " AND SegmentTwoDescription <> 'Non Functional' " +
-//     " ORDER BY OrganizationCode, ObjectCode" +
-//     ";"
-//   getQuery(query,res);
-//   // new sql.Request().query(query, function(err, recordset) {
-//   //   res.json(recordset);
-//   // });
-// });
 
 // {
 // "Id": 4876,
@@ -465,21 +437,13 @@ router.get('/gl/versions', function(req, res, next) {
   getTop100("dbo.glbdprom",res);
 });
 
-// Actual GL
+// Actual GL - Example
 router.get('/gl/versions/current', function(req, res, next) {
   var query = "SELECT TOP 100 * FROM dbo.glbdprod" +
               " WHERE glbd_prono = 20174" +
               " AND glbd_org LIKE '501%'" +
               " ORDER BY glbd_prono DESC, glbd_org, glbd_object;"
   getQuery(query,res);
-  // sql.connect(config_mulive).then(function() {
-  //   new sql.Request().query(query, function(err, recordset) {
-  //     sql.close();
-  //     res.json(recordset);
-  //   });
-  // }).catch(function(err) {
-  //     res.json(err);
-  // });
 });
 
 // {
