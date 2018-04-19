@@ -15,7 +15,7 @@ var jackrabbit = require('jackrabbit');
 var mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-var db = mongoose.connect(process.env.MONGODB_URI);
+var db = mongoose.connect(process.env.LAPTOP_MONGODB_URI);
     // .on('connected', function() {
     //   logger.log({ type: 'info', msg: 'connected', service: 'mongodb' });
     //   ready();
@@ -31,6 +31,7 @@ var db = mongoose.connect(process.env.MONGODB_URI);
     //   lost();
     // });
 
+// var rabbit = jackrabbit(process.env.CLOUDAMQP_URL);
 var rabbit = jackrabbit(process.env.CLOUDAMQP_URL);
     // .on('connected', function() {
     //   logger.log({ type: 'info', msg: 'connected', service: 'rabbitmq' });

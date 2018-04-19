@@ -9,15 +9,18 @@ import { Home ,
          Fleet,
          Fleet2,
          FleetShow,
+         FleetMapTrips,
          Snow,
          Scada,
          Ian,
+         UtilityBilling,
          GridView,
          Users,
          Signin,
          Signout,
          Signup,
          PrivateRoute,
+         VictoryCharts,
          Page as Page404 } from './indexViews';
 
 // Stylesheets
@@ -38,11 +41,14 @@ class App extends Component {
             <PrivateRoute exact path="/precise/fleet/:objectID" authenticated={authenticated} component={FleetShow} />
             <PrivateRoute exact path="/precise/fleet" authenticated={authenticated} component={Fleet} />
             <PrivateRoute exact path="/precise/fleet2" authenticated={authenticated} component={Fleet2} />
+            <PrivateRoute exact path="/precise/fleet/:objectID/map/trips" authenticated={authenticated} component={FleetMapTrips} />
             <PrivateRoute exact path="/snow" authenticated={authenticated} component={Snow} />
             <PrivateRoute exact path="/scada" authenticated={authenticated} component={Scada} />
             <PrivateRoute exact path="/ian/expenses" authenticated={authenticated} component={Ian} />
             <PrivateRoute exact path="/ian/revenues" authenticated={authenticated} component={Ian} />
+            <PrivateRoute exact path="/utilitybilling" authenticated={authenticated} component={UtilityBilling} />
             <PrivateRoute exact path="/settings/grid" authenticated={authenticated} component={GridView} />
+            <PrivateRoute exact path="/settings/victorycharts" authenticated={authenticated} component={VictoryCharts} />
             <PrivateRoute exact path="/settings/users" authenticated={authenticated} component={Users} />
             {/* <Route path={`${match.url}app`} component={MainApp} /> */}
             <Route exact path="/404" component={Page404} />

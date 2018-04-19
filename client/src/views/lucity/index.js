@@ -138,6 +138,9 @@ class Lucity extends Component {
             <CardBox width="6" title="Grouped By WO_ACTN_TY">
               <DataGridURL url='/api/lucity/work/groupby/WO_ACTN_TY'/>
             </CardBox>
+            <CardBox width="6" title="Grouped By WO_DIV_TY">
+              <DataGridURL url='/api/lucity/work/groupby/WO_DIV_TY'/>
+            </CardBox>
           </Row>
           <Row>
             <CardBox width="6" title="Grouped By WO_CAT_TY WO_PROB_TY">

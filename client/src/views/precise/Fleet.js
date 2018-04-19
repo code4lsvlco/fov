@@ -3,8 +3,7 @@ import { DefaultLayout } from '../common'
 import { FleetMuiTableURL } from './components/FleetMuiTableURL';
 
 class Fleet extends Component {
-
-
+  
   render() {
     return (
       <DefaultLayout>

@@ -9,11 +9,6 @@ var cors = require('cors');
 // Grab config info from .env
 require ('dotenv').config();
 
-// Database
-var mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI);
-
 var app = express();
 
 // view engine setup
@@ -32,7 +27,7 @@ app.use(cors());
 // Database
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect(process.env.LAPTOP_MONGODB_URI);
 
 var authentication = require('./routes/authentication');
 var index = require('./routes/index');
@@ -41,8 +36,8 @@ var apiIanMunis = require('./routes/api/ian-munis');
 var apiIanUB = require('./routes/api/ian-ub');
 var apiLucity = require('./routes/api/lucity');
 var apiFleet = require('./routes/api/fleet');
-// var apiPrecise = require('./routes/api/precise');
-var apiSCADA = require('./routes/api/scada');
+var apiSCADA_MSSQL = require('./routes/api/scada-mssql');
+var apiSCADA_MONGO = require('./routes/api/scada-mongo');
 
 app.use('/auth/', authentication);
 app.use('/', index);
@@ -51,8 +46,8 @@ app.use('/api/ian/ub',apiIanUB);
 app.use('/api/ian/munis',apiIanMunis);
 app.use('/api/lucity',apiLucity);
 app.use('/api/fleet',apiFleet);
-app.use('/api/scada',apiSCADA);
-// app.use('/api/precise',apiPrecise);
+app.use('/api/scada/mssql',apiSCADA_MSSQL);
+app.use('/api/scada/mongo',apiSCADA_MONGO);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

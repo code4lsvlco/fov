@@ -22,7 +22,7 @@ class StatisticURL extends Component {
     axios.get(this.props.url)
       .then(res => {
         let data = res.data.recordset[0];
-        console.log(data);
+        // console.log(data);
         // const dataKeys = _.keys(data[0]);
         // const dataKeyName = _.map(dataKeys,(key) => {return { key: key, name: key }});
         this.setState({ value: data.Value.toFixed(this.props.fixed ? this.props.fixed : 0), timestamp: data.Timestamp });

@@ -18,11 +18,14 @@ class ChartDateTime extends Component {
   }
 
   componentDidMount() {
+    console.log("ChartDateTime componentDidMount");
     axios.get(this.props.url)
       .then(res => {
+        // console.log(res);
         // console.log(res.data.recordset);
         // var timeStamp = Math.floor(Date() / 1000);
         let data = res.data.recordset ;
+        // console.log(data);
         data = _.sortBy(data, this.props.category);
         data = _.dropRight(data);
         const dataKeys = _.keys(data[0]);
@@ -36,7 +39,7 @@ class ChartDateTime extends Component {
           return [Date.UTC(year,month,day),row[this.props.series]]
         });
         this.setState({ columns: dataKeyName, rows: data, categories: categories, series: series });
-        console.log(this.state);
+        // console.log(this.state);
       })
       .catch(function (error) {
         console.log(error);
@@ -48,6 +51,7 @@ class ChartDateTime extends Component {
   // yaxis
 
   render() {
+    console.log("ChartDateTime render");
     return (
       <ReactHighcharts config={
         {

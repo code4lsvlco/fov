@@ -85,6 +85,7 @@ class FleetShow extends Component {
                   endDate={new Date('2016-12-31')}
                   values={this.state.tripDateTimeFrequency}
                   onClick={this.customOnClick}
+                  tooltipDataAttrs={(value) => ({ 'data-rh': `${value.date} - ${value.count}`, 'data-rh-at': "left" })}
                 />
               </div>
               <div style={{paddingRight: 50, paddingLeft: 50, paddingTop: 0, paddingBottom: 0}}>
@@ -95,6 +96,18 @@ class FleetShow extends Component {
                   endDate={new Date('2017-12-31')}
                   values={this.state.tripDateTimeFrequency}
                   onClick={this.customOnClick}
+                  tooltipDataAttrs={(value) => ({ 'data-rh': `${value.date} - ${value.count}`, 'data-rh-at': "left" })}
+                />
+              </div>
+              <div style={{paddingRight: 50, paddingLeft: 50, paddingTop: 0, paddingBottom: 0}}>
+                <h1>2018</h1>
+                <CalendarHeatmap
+                  showWeekdayLabels={true}
+                  startDate={new Date('2018-01-01')}
+                  endDate={new Date('2018-12-31')}
+                  values={this.state.tripDateTimeFrequency}
+                  onClick={this.customOnClick}
+                  tooltipDataAttrs={(value) => ({ 'data-rh': `${value.date} - ${value.count}`, 'data-rh-at': "left" })}
                 />
               </div>
             </Paper>

@@ -3,6 +3,7 @@ var router = express.Router();
 
 var Fleet = require('../../models/fleet');
 var TripData = require('../../models/tripdata');
+var TripSegment = require('../../models/segmentdata');
 
 var preciseSOAPXML = require('../../services/preciseSOAPXML');
 
@@ -40,8 +41,11 @@ router.get('/', function(req, res, next) {
 router.get("/:Asset_id/tripdata/groupby/reportdatetime",(req,res,next) => {
   const Asset_id = req.params.Asset_id;
   // console.log(Asset_id);
-  // TripData.find({Asset_id: Asset_id}).exec((err,results) => {
-  //   console.log(results.length);
+  // console.log(TripData.find({Asset_id: Asset_id}).count().exec());
+  // TripData.find({Asset_id: Asset_id}).count().exec((err,results) => {
+  //   // console.log(results.length);
+  //   // res.json({AssetID: AssetID, tripdataLength: results.length});
+  //   res.json({err: err, results: results});
   // });
   TripData.aggregate([{ $match: {
                           Asset_id: Asset_id
@@ -67,18 +71,18 @@ router.get("/:Asset_id/tripdata/groupby/reportdatetime",(req,res,next) => {
   });
 })
 
-router.get('/sync/:fleet_id/all', function(req, res, next) {
-  var fleet_id = parseInt(req.params.fleet_id);
-  if (req.query.month) {
-    exchange.publish({fleet_id: fleet_id, year: req.query.year, month: req.query.month}, { key: 'tripdata' });
-    // new TripDataSyncLog({datetime: Date(), fleet_id: fleet_id, year: req.query.year, month: req.query.month, status: 0}).save();
-  } else {
-    _.each([0,1,2,3,4,5,6,7,8,9,10,11],function(month){
-      exchange.publish({fleet_id: fleet_id, year: req.query.year, month: month}, { key: 'tripdata' });
-      // new TripDataSyncLog({datetime: Date(), fleet_id: fleet_id, year: req.query.year, month: month, status: 0}).save();
-    });
-  };
-  res.redirect('/fleet/' + fleet_id);
-});
+// router.get('/sync/:fleet_id/all', function(req, res, next) {
+//   var fleet_id = parseInt(req.params.fleet_id);
+//   if (req.query.month) {
+//     exchange.publish({fleet_id: fleet_id, year: req.query.year, month: req.query.month}, { key: 'tripdata' });
+//     // new TripDataSyncLog({datetime: Date(), fleet_id: fleet_id, year: req.query.year, month: req.query.month, status: 0}).save();
+//   } else {
+//     _.each([0,1,2,3,4,5,6,7,8,9,10,11],function(month){
+//       exchange.publish({fleet_id: fleet_id, year: req.query.year, month: month}, { key: 'tripdata' });
+//       // new TripDataSyncLog({datetime: Date(), fleet_id: fleet_id, year: req.query.year, month: month, status: 0}).save();
+//     });
+//   };
+//   res.redirect('/fleet/' + fleet_id);
+// });
 
 module.exports = router;

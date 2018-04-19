@@ -62,6 +62,11 @@ const SideBar = withRouter((props) => (
         ]}
       />
       <ListItem
+        value={"/utilitybilling"}
+        primaryText="Utility Billing"
+        style={ props.location.pathname === "/utilitybilling" ? {color: '#FFF'} : {color: '#a7b1c2'}}
+      />
+      <ListItem
         value={"/snow"}
         primaryText="Snow"
         style={ props.location.pathname === "/snow" ? {color: '#FFF'} : {color: '#a7b1c2'}}
@@ -86,6 +91,11 @@ const SideBar = withRouter((props) => (
             value={"/settings/grid"}
             primaryText="Grid"
             style={ props.location.pathname === "/settings/grid" ? {color: '#FFF'} : {color: '#a7b1c2'}}
+          />,
+          <ListItem
+            value={"/settings/victorycharts"}
+            primaryText="Victory Charts"
+            style={ props.location.pathname === "/settings/victorycharts" ? {color: '#FFF'} : {color: '#a7b1c2'}}
           />,
         ]}
       />

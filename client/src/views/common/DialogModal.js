@@ -14,6 +14,7 @@ class DialogModal extends React.Component {
 
   handleClose = () => {
     this.setState({open: false});
+    if (this.props.submit) this.props.submit();
   };
 
   render() {
@@ -24,23 +25,26 @@ class DialogModal extends React.Component {
         onClick={this.handleClose}
       />,
       <FlatButton
-        label="Submit"
+        label={this.props.submitLabel ? this.props.submitLabel : "Submit"}
         primary={true}
-        disabled={true}
+        // disabled={true}
         onClick={this.handleClose}
       />,
     ];
 
+    if (this.props.button)
+
     return (
       <div>
-        <RaisedButton label="Modal Dialog" onClick={this.handleOpen} />
+        {/* <RaisedButton label="Modal Dialog" onClick={this.handleOpen} /> */}
+        <div onClick={this.handleOpen}>{this.props.button}</div>
         <Dialog
-          title="Dialog With Actions"
+          title={this.props.title}
           actions={actions}
           modal={true}
           open={this.state.open}
         >
-          Only actions can close this dialog.
+          {this.props.children}
         </Dialog>
       </div>
     );

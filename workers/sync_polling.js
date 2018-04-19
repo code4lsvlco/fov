@@ -10,7 +10,7 @@ var jackrabbit = require('jackrabbit');
 var mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-var db = mongoose.connect(process.env.MONGODB_URI);
+var db = mongoose.connect(process.env.LAPTOP_MONGODB_URI);
 
 var jackrabbit = require('jackrabbit');
 var rabbit = jackrabbit(process.env.CLOUDAMQP_URL);
@@ -36,7 +36,7 @@ const initTripData = () => {
     if (err) console.log(err);
     console.log(foundFleet)
     foundFleet.forEach((fleet) => {
-      ["2015","2016","2017"].forEach((year) => {
+      ["2015","2016","2017","2018"].forEach((year) => {
         [0,1,2,3,4,5,6,7,8,9,10,11].forEach((month) => {
           exchange.publish({fleet_id: fleet.AssetID, year: year, month: month}, { key: 'tripdata' });
           // new TripDataSyncLog({datetime: Date(), fleet_id: fleet_id, year: req.query.year, month: month, status: 0}).save();

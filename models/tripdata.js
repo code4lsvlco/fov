@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var TripDataSchema = new Schema({
-  // Asset_id: { type: Schema.Types.ObjectId, ref: 'Fleet' },
   Asset_id: { type: String, index: true },
   AssetID: { type: String, index: true },
   AssetName: String,

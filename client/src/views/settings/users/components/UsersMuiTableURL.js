@@ -13,6 +13,8 @@ import {
 import { Toolbar, ToolbarGroup, ToolbarTitle, FontIcon, IconButton } from 'material-ui';
 import FontAwesome from 'react-fontawesome';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
+import ActionLock from 'material-ui/svg-icons/action/lock';
+import ActionLockOpen from 'material-ui/svg-icons/action/lock-open';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import { DialogModal } from '../../../common';
 
@@ -29,8 +31,10 @@ class UsersMuiTableURL extends Component {
 
     this._onCellClick = this._onCellClick.bind(this);
     this._onRowSelection = this._onRowSelection.bind(this);
-    this._onDeleteClick = this._onDeleteClick.bind(this);
+    this._onDeleteUserClick = this._onDeleteUserClick.bind(this);
     this._onInviteUserClick = this._onInviteUserClick.bind(this);
+    this._onChangePasswordUserClick = this._onChangePasswordUserClick.bind(this);
+    this._onForgotPasswordUserClick = this._onForgotPasswordUserClick.bind(this);
   }
 
   _fetchData(url) {
@@ -65,7 +69,7 @@ class UsersMuiTableURL extends Component {
     console.log('_onCellClick');
   }
 
-  _onDeleteClick(e){
+  _onDeleteUserClick(e){
     const selectedRow = this.state.selectedRow;
     const idKey = this.props.idKey;
     const objectID = this.state.rows[selectedRow][idKey];
@@ -81,6 +85,16 @@ class UsersMuiTableURL extends Component {
 
   _onInviteUserClick() {
     console.log("_onInviteUserClick");
+    this.setState({showDialogModal: true});
+  };
+
+  _onChangePasswordUserClick() {
+    console.log("_onChangePasswordUserClick");
+    this.setState({showDialogModal: true});
+  };
+
+  _onForgotPasswordUserClick() {
+    console.log("_onForgotPasswordUserClick");
     this.setState({showDialogModal: true});
   };
 
@@ -103,13 +117,33 @@ class UsersMuiTableURL extends Component {
             <div style={{ float: 'right' }}>
               <ToolbarGroup>
                 { selectedRow !== null ?
-                  <IconButton onClick={this._onDeleteClick} >
-                    <ActionDelete />
-                  </IconButton>
+                  <div>
+                    <IconButton>
+                      <DialogModal
+                        title="Delete User"
+                        submit={this._onDeleteUserClick}
+                        submitLabel="Delete User"
+                        button={<ActionDelete />}
+                      >
+                        Are you sure you want to delete this user?
+                      </DialogModal>
+                    </IconButton>
+                    <IconButton onClick={this._onChangePasswordClick} >
+                      <DialogModal title="Change User Password" button={<ActionLock />}>
+                        TODO: Create ChangePasswordForm
+                      </DialogModal>
+                    </IconButton>
+                    <IconButton onClick={this._onForgotPasswordClick} >
+                      <DialogModal title="Send Forgot Password" button={<ActionLockOpen />}>
+                        TODO: Send Forgot Password
+                      </DialogModal>
+                    </IconButton>
+                  </div>
                 :
-                  <IconButton onClick={this._onInviteUserClick} >
-                    <ContentAdd />
-                    <DialogModal />
+                  <IconButton>
+                    <DialogModal title="Invite User" onClick={this._onInviteUserClick} button={<ContentAdd />}>
+                      InviteUserForm
+                    </DialogModal>
                   </IconButton>
                 }
               </ToolbarGroup>
